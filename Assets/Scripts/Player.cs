@@ -1,5 +1,9 @@
-﻿using UnityEngine;
+﻿//Edited by Bradley Case
+
+using UnityEngine;
 using System.Collections;
+//Bradley Added ---------------------------------------------------------------------------------------------
+using System.Collections.Generic; // added to use generic list.
 
 public class Player : MonoBehaviour 
 {
@@ -15,7 +19,7 @@ public class Player : MonoBehaviour
 	}
 
 	public float MaxHP;
-	public float HP;
+    public float HP;
 	public float MaxMana;		//Mana, magic, etc.
 	public float Mana;
 
@@ -31,7 +35,19 @@ public class Player : MonoBehaviour
 	public float gravity = 20.0F;
 	private Vector3 moveDirection = Vector3.zero;
 
+    //Bradley Added --------------------------------------------------------------------------------------------------
+    public float MaxPower; //added as major stat
+    public float Power;    //added as major stat
 
+    public List<string> inventory; //Generic list, see void Start() for implementation link and example
+
+    void Start()
+    {
+        //Bradley Added, inventory example for adding to the list. For more information goto --> https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx
+        inventory = new List<string>();
+        inventory.Add("Wood: " + 55);
+        inventory.Add("Stone: " + 26);
+    }
 
 	void Update() 
 	{

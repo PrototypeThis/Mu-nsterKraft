@@ -3,18 +3,22 @@ using System.Collections;
 
 public class HealthBarScript : MonoBehaviour {
 
-    public float inset = 40.0f;
-    public float size = 138.0f;
+    public float amount = 0.0f;
+    public float maxAmount = 0.0f;
+
+    public Player player;
 
     RectTransform thisRectTransform;
 	void Start ()
     {
-        thisRectTransform = gameObject.GetComponent<RectTransform>();
+        
 	}
 	
 	void Update ()
     {
-        //gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size);
-        thisRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, inset, size);
+        amount = player.HP;
+        maxAmount = player.MaxHP;
+
+        GetComponent<Transform>().
     }
 }
