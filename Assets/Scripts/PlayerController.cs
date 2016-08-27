@@ -54,7 +54,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             transform.position -= transform.right * player.speed * Time.deltaTime;
-        }     
+        }
+
     }
 
     /// <summary>
