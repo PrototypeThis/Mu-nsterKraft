@@ -20,8 +20,8 @@ public class PowerScript : MonoBehaviour
 	
 	void Update ()
     {
-        amount = player.Power;          //gets data from player component
-        maxAmount = player.MaxPower;    //gets data from player component
+        amount = player.power;          //gets data from player component
+        maxAmount = player.maxPower;    //gets data from player component
 
         someText.text = "Power: " + amount + "/" + maxAmount;
     }

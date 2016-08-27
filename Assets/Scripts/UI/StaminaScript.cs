@@ -21,8 +21,8 @@ public class StaminaScript : MonoBehaviour
 	
 	void Update ()
     {
-        amount = player.Stamina;        //gets data from player component
-        maxAmount = player.MaxStamina;  //gets data from player component
+        amount = player.stamina;        //gets data from player component
+        maxAmount = player.maxStamina;  //gets data from player component
 
         someText.text = "Stamina: " + amount + "/" + maxAmount;
     }

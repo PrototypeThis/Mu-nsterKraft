@@ -20,8 +20,8 @@ public class HungerScript : MonoBehaviour
 	
 	void Update ()
     {
-        amount = player.Hunger;         //gets data from player component
-        maxAmount = player.MaxHunger;   //gets data from player component
+        amount = player.hunger;         //gets data from player component
+        maxAmount = player.hunger;   //gets data from player component
 
         someText.text = "Hunger: " + amount + "/" + maxAmount;
     }

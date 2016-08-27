@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/*
+ *Player Script
+ * Miguel Torres
+ */
+
+using UnityEngine;
 using System.Collections;
 
 public class Player : MonoBehaviour
@@ -10,77 +15,52 @@ public class Player : MonoBehaviour
         Sleep,
         Spell,
         SuckBlood,
-
-
     }
 
+    #region stats
 
+    public float health;       //the player's health
+    public float maxHealth;    //the player's max health
 
-    public float minFov = 15f;
-    public float maxFov = 90f;
-    public float sensitivity = 10f;
+    public float hunger;        //the player's hunger level
+    public float maxHunger;     //the max amount of hunger a player has
+    public float hungerDecayRate;   //how quickly player hunger depletes
 
+    public float power;         //the player's power points
+    public float maxPower;      //the player's max power points
 
-    public float MaxHP;
-    public float HP;
-    public float MaxMana;       //Mana, magic, etc.
-    public float Mana;
-    public float MaxHunger;
-    public float Hunger;
-    public float HungeringRate;
-    public float MaxStamina;
-    public float Stamina;
+    public float stamina;       //the player's stamina
+    public float maxStamina;    //the player's max stamina
 
+    public float experience;    //how much experience a player has
 
-    public GameObject amera;
-    public float speed = 20.0F;
-    public float jumpSpeed = 20.0F;
-    public float gravity = 20.0F;
-    private Vector3 moveDirection = Vector3.zero;
+    public int level;           //the player's level
+            
+    public float gatheringRate; //how many resources a player can gather from a resource point
 
-    private int mouseXSpeedMod = 100;
+    public float speed;
 
-
-
-    //public GameObject player;
-    private Vector3 offset;
+    #endregion
 
     void Start()
     {
-        offset = Camera.main.transform.position - transform.position;
+        
     }
-
 
     void Update()
     {
-        CharacterController controller = GetComponent<CharacterController>();
-        if (controller.isGrounded)
-        {
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= speed;
-            if (Input.GetButton("Jump"))
-                moveDirection.y = jumpSpeed;
-
-        }
-        moveDirection.y -= gravity * Time.deltaTime;
-        controller.Move(moveDirection * Time.deltaTime);
-
-
-        float rotx = Input.GetAxis("Mouse X") * mouseXSpeedMod * Mathf.Deg2Rad;
-        transform.Rotate(Vector3.up, rotx);
+        ReduceHunger();
     }
 
-
-    void LateUpdate()
+    /// <summary>
+    /// Reduces hunger by hungerDecayRate
+    /// </summary>
+    private void ReduceHunger()
     {
-        Camera.main.transform.position = transform.position + offset;
-
-        float fov = Camera.main.fieldOfView;
-        fov += Input.GetAxis("Mouse ScrollWheel") * sensitivity;
-        fov = Mathf.Clamp(fov, minFov, maxFov);
-        Camera.main.fieldOfView = fov;
+        hunger = hunger - hungerDecayRate * Time.deltaTime;
     }
+
+
 
 
 

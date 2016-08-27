@@ -1,24 +1,74 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
+using System;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
+    private Player player;
 
-	public float speed;
+    //the player's rigidbody used for movement
+    private Rigidbody rb;
 
-	private Rigidbody rb;
+    //how fast the player rotates
+    public float rotateSpeed;
 
-	void Start ()
-	{
-		rb = GetComponent<Rigidbody>();
-	}
+    void Start()
+    {
+        player = FindObjectOfType<Player>();
+        rb = GetComponent<Rigidbody>();
+    }
 
-	void FixedUpdate ()
-	{
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
+    void FixedUpdate()
+    {
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
 
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+        if (Physics.Raycast(transform.position, fwd, 10))
+            print("There is something in front of the object!");
+    }
 
-		rb.AddForce (movement * speed);
-	}
+    void Update()
+    {
+        PlayerRotation();
+        PlayerMovement();
+
+    }
+
+    /// <summary>
+    /// Handles player movement
+    /// </summary>
+    private void PlayerMovement()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.position += transform.forward * player.speed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.position -= transform.forward * player.speed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position += transform.right * player.speed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position -= transform.right * player.speed * Time.deltaTime;
+        }     
+    }
+
+    /// <summary>
+    /// Handles Player Rotation
+    /// </summary>
+    private void PlayerRotation()
+    {
+        //grabs horizontal input from mouse
+        float h = rotateSpeed * Input.GetAxis("Mouse X");
+
+        //grabs vertical input from mouse
+        // float v = rotateSpeed * Input.GetAxis("Mouse Y");
+
+        //rotates object based on mouse inputs
+        transform.Rotate(0, h, 0);   
+    }
 }

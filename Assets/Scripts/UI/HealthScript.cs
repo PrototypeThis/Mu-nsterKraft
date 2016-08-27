@@ -20,8 +20,8 @@ public class HealthScript : MonoBehaviour
 	
 	void Update ()
     {
-        amount = player.HP;         //gets data from player component
-        maxAmount = player.MaxHP;   //gets data from player component
+        amount = player.health;         //gets data from player component
+        maxAmount = player.maxHealth;   //gets data from player component
 
         someText.text = "Health: " + amount + "/" + maxAmount;
     }
