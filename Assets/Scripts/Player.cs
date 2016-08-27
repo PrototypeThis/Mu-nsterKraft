@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
 
     public float stamina;       //the player's stamina
     public float maxStamina;    //the player's max stamina
+    public float staminaDecayRate;  //how fast stamina decays
 
     public float experience;    //how much experience a player has
 
@@ -38,7 +39,12 @@ public class Player : MonoBehaviour
             
     public float gatheringRate; //how many resources a player can gather from a resource point
 
+    public float gatherDistance;
+
     public float speed;
+
+
+
 
     #endregion
 
@@ -60,8 +66,9 @@ public class Player : MonoBehaviour
         hunger = hunger - hungerDecayRate * Time.deltaTime;
     }
 
-
-
-
+    public void ReduceStamina()
+    {
+        stamina = stamina - staminaDecayRate * Time.deltaTime;
+    }
 
 }

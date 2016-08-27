@@ -10,11 +10,15 @@ public class PlayerController : MonoBehaviour
     //the player's rigidbody used for movement
     private Rigidbody rb;
 
+    bool sprint;
+
     //how fast the player rotates
     public float rotateSpeed;
 
+
     void Start()
     {
+        sprint = false;
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody>();
     }
@@ -22,9 +26,13 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, fwd, 10))
-            print("There is something in front of the object!");
+        if (Physics.Raycast(transform.position, fwd, out hit, player.gatherDistance))
+        {
+            print("There is a " + hit.collider.tag + " in front of me");
+            Debug.DrawLine(transform.position, hit.point, Color.red);
+        }
     }
 
     void Update()
@@ -55,7 +63,6 @@ public class PlayerController : MonoBehaviour
         {
             transform.position -= transform.right * player.speed * Time.deltaTime;
         }
-
     }
 
     /// <summary>
@@ -71,5 +78,10 @@ public class PlayerController : MonoBehaviour
 
         //rotates object based on mouse inputs
         transform.Rotate(0, h, 0);   
+    }
+
+    private void Gather()
+    {
+
     }
 }
