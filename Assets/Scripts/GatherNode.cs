@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Rock : MonoBehaviour {
+public class GatherNode : MonoBehaviour {
 
     public enum NodeState
     {
@@ -51,5 +51,24 @@ public class Rock : MonoBehaviour {
     private void NodeRegen()
     {
         resourceAmount += regenRate * Time.deltaTime;
+    }
+
+
+    /// <summary>
+    /// Called by PlayerController when Player is gathering.
+    /// </summary>
+    /// <param name="gatheringRate"></param>
+    public float DecreaseResource(float gatheringRate)
+    {
+        float resourcesToReturn = 0.0f;
+        if (resourceAmount >= 0 && state != NodeState.Empty)
+        {
+            resourcesToReturn += gatheringRate * Time.deltaTime;
+
+            resourceAmount -= resourcesToReturn;
+            return resourcesToReturn;
+        }
+
+        else return 0.0f;
     }
 }

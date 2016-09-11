@@ -43,8 +43,11 @@ public class Player : MonoBehaviour
 
     public float speed;
 
+    #endregion
 
-
+    #region Inventory
+    public float tree = 0.0f;
+    public float rock = 0.0f;
 
     #endregion
 
@@ -69,6 +72,12 @@ public class Player : MonoBehaviour
     public void ReduceStamina()
     {
         stamina = stamina - staminaDecayRate * Time.deltaTime;
+    }
+
+    public void Gather(float resourceAmount)
+    {
+
+
     }
 
 }
