@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour
     //the player's rigidbody used for movement
     private Rigidbody rb;
 
-    public RaycastHit hit;
-
     bool sprint;
 
     //how fast the player rotates
@@ -27,12 +25,20 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, fwd, out hit, player.gatherDistance))
+        {
+            print("There is a " + hit.collider.tag + " in front of me");
+            Debug.DrawLine(transform.position, hit.point, Color.red);
+        }
     }
 
     void Update()
     {
         PlayerRotation();
-        PlayerInput();
+        PlayerMovement();
     }
 
     /// <summary>
@@ -58,27 +64,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayerInput()
-    {
-        PlayerMovement();
-        Vector3 fwd = transform.TransformDirection(Vector3.forward);
-
-        if (Physics.Raycast(transform.position, fwd, out hit, player.gatherDistance))
-        {
-            print("There is a " + hit.collider.tag + " in front of me");
-            Debug.DrawLine(transform.position, hit.point, Color.red);
-
-            if (Input.GetKey(KeyCode.F))
-            {
-                Gather(hit);
-
-
-            }
-        }
-
-
-    }
-
     /// <summary>
     /// Handles Player Rotation
     /// </summary>
@@ -94,15 +79,8 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(0, h, 0);   
     }
 
-    private void Gather(RaycastHit gatherHit)
+    private void Gather()
     {
-        float resourceAmount = gatherHit.collider.gameObject.GetComponent<GatherNode>().resourceAmount;
-        
-        if (resourceAmount > 0)
-        {
-            player.Gather(gatherHit.collider.gameObject.GetComponent<GatherNode>().DecreaseResource(player.gatheringRate));
-            print("Gathered: " + gatherHit.collider.gameObject.tag);
-        }
 
     }
 }

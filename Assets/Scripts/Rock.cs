@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Rock : MonoBehaviour {
+public class GatherNode : MonoBehaviour {
 
     public enum NodeState
     {
