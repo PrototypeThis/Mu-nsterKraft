@@ -1,74 +1,98 @@
-﻿/*
- *Player Script
- * Miguel Torres
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour
-{
-    public enum PlayerState
+public class Player : MonoBehaviour {
+
+    public float health;
+    public float maxHealth;
+
+    public float stamina;
+    public float maxStamina;
+
+    public float power;
+    public float maxPower;
+
+    public float hunger;
+    public float maxHunger;
+    public float hungerIncreaseRate;
+
+	// Use this for initialization
+	void Start ()
     {
-        Attack,
-        Eat,
-        Sleep,
-        Spell,
-        SuckBlood,
+        
+	}
+	
+	// Update is called once per frame
+	void Update ()
+    {
+        IncreaseHunger();
     }
 
-    #region stats
-
-    public float health;       //the player's health
-    public float maxHealth;    //the player's max health
-
-    public float hunger;        //the player's hunger level
-    public float maxHunger;     //the max amount of hunger a player has
-    public float hungerDecayRate;   //how quickly player hunger depletes
-
-    public float power;         //the player's power points
-    public float maxPower;      //the player's max power points
-
-    public float stamina;       //the player's stamina
-    public float maxStamina;    //the player's max stamina
-    public float staminaDecayRate;  //how fast stamina decays
-
-    public float experience;    //how much experience a player has
-
-    public int level;           //the player's level
-            
-    public float gatheringRate; //how many resources a player can gather from a resource point
-
-    public float gatherDistance;
-
-    public float speed;
-
-
-
+    #region Getters
+    public float GetHealth()
+    {
+        return health;
+    }
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+    public float GetStamina()
+    {
+        return stamina;
+    }
+    public float GetMaxStamina()
+    {
+        return maxStamina;
+    }
+    public float GetPower()
+    {
+        return power;
+    }
+    public float GetMaxPower()
+    {
+        return maxPower;
+    }
+    public float GetHunger()
+    {
+        return hunger;
+    }
+    public float GetMaxHunger()
+    {
+        return maxHunger;
+    }
 
     #endregion
 
-    void Start()
+    #region Setters
+
+    public void SetHealth(float aHealth)
     {
-        
+        health = aHealth;
     }
 
-    void Update()
+    public void SetHunger(float aHunger)
     {
-        ReduceHunger();
+        hunger = aHunger;
     }
 
-    /// <summary>
-    /// Reduces hunger by hungerDecayRate
-    /// </summary>
-    private void ReduceHunger()
+    #endregion
+
+    public void IncreaseHunger()
     {
-        hunger = hunger - hungerDecayRate * Time.deltaTime;
+        if (hunger < maxHunger)
+        {
+            hunger += hungerIncreaseRate * Time.deltaTime;
+        }
     }
 
-    public void ReduceStamina()
+    public void ModifyHealth(float increment)
     {
-        stamina = stamina - staminaDecayRate * Time.deltaTime;
+        SetHealth(GetHealth() + increment);
     }
 
+    public void ModifyHunger(float increment)
+    {
+        SetHunger(GetHunger() + increment);
+    }
 }
